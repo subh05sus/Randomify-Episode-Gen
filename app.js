@@ -18,7 +18,6 @@ app.get('/styles.css', (req, res) => {
 app.get('/index.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.js'));
 });
-// ...
 
 app.get('/getRandomEpisode', async (req, res) => {
     const seriesInput = req.query.seriesInput;
@@ -46,14 +45,16 @@ app.get('/getRandomEpisode', async (req, res) => {
         episodeImage: randomEpisode.image?.medium || null,
         season: randomEpisode.season,
         number: randomEpisode.number,
-      });
+        
+    });
     } catch (error) {
       console.error('Error:', error.message);
       res.status(500).send('Internal Server Error');
     }
   });
   
-  // ...
+
+  
   
 function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
