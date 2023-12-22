@@ -3,7 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const seriesInput = document.getElementById('seriesInput').value;
 
     try {
-      const response = await fetch(`/getRandomEpisode?seriesInput=${encodeURIComponent(seriesInput)}`);
+      const seasonParam = getUrlParameter('season');
+      const numberParam = getUrlParameter('number');
+
+      let response;
+
+      if (seasonParam && numberParam) {
+        // If season and number parameters are provided in the URL, fetch the specific episode
+        response = await fetch(`/getRandomEpisode?seriesInput=${encodeURIComponent(seriesInput)}&season=${seasonParam}&number=${numberParam}`);
+      } else {
+        // Otherwise, fetch a random episode
+        response = await fetch(`/getRandomEpisode?seriesInput=${encodeURIComponent(seriesInput)}`);
+      }
+
       const data = await response.json();
 
       const episodeDetailsContainer = document.getElementById('episodeDetails');
@@ -38,13 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
 
-  // Check for URL parameters and fetch the specific episode details
+  // Check for URL parameters and fetch episode details
   const seriesInputParam = getUrlParameter('seriesInput');
   const seasonParam = getUrlParameter('season');
   const numberParam = getUrlParameter('number');
 
-  if (seriesInputParam && seasonParam && numberParam) {
+  if (seriesInputParam) {
     document.getElementById('seriesInput').value = seriesInputParam;
-    getRandomEpisode(); // Fetch details for the specific episode
+    getRandomEpisode(); // Fetch details for the specific episode if URL parameters are present
   }
 });
