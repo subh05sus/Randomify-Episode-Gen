@@ -20,42 +20,56 @@ app.get('/index.js', (req, res) => {
 });
 
 app.get('/getRandomEpisode', async (req, res) => {
-    const seriesInput = req.query.seriesInput;
-  
-    try {
-      const showsResponse = await axios.get(`http://api.tvmaze.com/search/shows?q=${seriesInput}`);
-      const showsData = showsResponse.data;
-  
-      if (showsData.length === 0) {
-        res.status(404).send('Show not found');
-        return;
-      }
-  
-      const show = showsData[0].show;
-  
+  const seriesInput = req.query.seriesInput;
+  const seasonParam = req.query.season;
+  const numberParam = req.query.number;
+
+  try {
+    const showsResponse = await axios.get(`http://api.tvmaze.com/search/shows?q=${seriesInput}`);
+    const showsData = showsResponse.data;
+
+    if (showsData.length === 0) {
+      res.status(404).send('Show not found');
+      return;
+    }
+
+    const show = showsData[0].show;
+
+    let randomEpisode;
+
+    if (seasonParam && numberParam) {
+      // If season and number parameters are provided, fetch the specific episode
       const episodesResponse = await axios.get(`http://api.tvmaze.com/shows/${show.id}/episodes`);
       const episodesData = episodesResponse.data;
-  
-      const randomEpisode = getRandomItem(episodesData);
-  
-      res.json({
-        showName: show.name,
-        episodeName: randomEpisode.name,
-        episodePremise: randomEpisode.summary || 'No summary available.',
-        episodeImage: randomEpisode.image?.medium || null,
-        season: randomEpisode.season,
-        number: randomEpisode.number,
-        
-    });
-    } catch (error) {
-      console.error('Error:', error.message);
-      res.status(500).send('Internal Server Error');
-    }
-  });
-  
 
-  
-  
+      // Find the specific episode based on season and number
+      randomEpisode = episodesData.find(episode => episode.season == seasonParam && episode.number == numberParam);
+
+      if (!randomEpisode) {
+        res.status(404).send('Episode not found');
+        return;
+      }
+    } else {
+      // Otherwise, fetch a random episode
+      const episodesResponse = await axios.get(`http://api.tvmaze.com/shows/${show.id}/episodes`);
+      const episodesData = episodesResponse.data;
+      randomEpisode = getRandomItem(episodesData);
+    }
+
+    res.json({
+      showName: show.name,
+      episodeName: randomEpisode.name,
+      episodePremise: randomEpisode.summary || 'No summary available.',
+      episodeImage: randomEpisode.image?.medium || null,
+      season: randomEpisode.season,
+      number: randomEpisode.number,
+    });
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
