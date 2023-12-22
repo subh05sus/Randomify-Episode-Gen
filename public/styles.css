@@ -1,33 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree&family=Rubik+Doodle+Shadow&display=swap");
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  
-  #app {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+  margin: 0;
+  display: flex;
+  background: url("bg.svg") center no-repeat; 
+  background-size: cover; /* or contain, or specific dimensions */
+
+  font-family: "Figtree", sans-serif;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent scrollbars caused by background image */
+  height: 100vh;
+  background-color: #97979700;
+}
+
+
+.container {
+  background: rgba(255, 255, 255, 0.374);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 75%;
+  max-width: 75%;
+}
+
+h1 {
+  color: #fff;
+  font-size: 36px;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#episodeDetails {
+  margin-top: 20px;
+}
