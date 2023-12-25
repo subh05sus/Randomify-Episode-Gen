@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <title>Randomify</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
 </head>
 <body>
 
   <div class="container" id="mainContainer">
     <h1>Randomify</h1>
     <input type="text" id="seriesInput" placeholder="Enter series name">
-    <button onclick="getRandomEpisode()">Generate Random Episode</button>
+    <button onclick="getRandomEpisode()" class="submitButton">Generate Random Episode</button>
     <div id="episodeDetails"></div>
   </div>
   <script src="index.js"></script>
