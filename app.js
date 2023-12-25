@@ -1,9 +1,6 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-const { GoogleGenerativeAI,HarmBlockThreshold, HarmCategory  } = require("@google/generative-ai");
-require("dotenv").config();
-
 
 const app = express();
 const port = 3000;
@@ -78,37 +75,9 @@ function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 }
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
-
-async function main(ques) {
-  const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
-    safetySettings 
-  });
-
-  const prompt =
-    "SUMMARIZE:\n" + ques;
-
-  try {
-    const result = await model.generateContentStream(prompt);
-    const response = await result.response;
-    //   const text = response.text();
-
-    let text = "";
-    for await (const chunk of result.stream) {
-      const chunkText = chunk.text();
-      text += chunkText;
-    }
-    console.log(reqCount, ques, ":", text);
-
-    return (text);
-  } catch (e) {
-    return ("No Hate Speech Please");
-  }
-}
 
