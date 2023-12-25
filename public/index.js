@@ -94,6 +94,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+
+  window.resetNum = (number) => {
+    // Set number to 1
+    number = 1;
+    
+    // After 250 seconds (250,000 milliseconds), reset number to 0
+    setTimeout(() => {
+      number = 0;
+    }, 1000);
+  };
+  
+  
+  
   window.copyToClipboard = null;
 
   window.copyToClipboard = (seriesInput, season, number) => {
@@ -112,7 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Error:", error);
           alert("Unable to copy to clipboard. Please try again.");
         });
-      copy = 1;
+      copy = 1
+      setTimeout(() => {
+        copy = 0;
+      }, 1000);
+
     }
   };
 
@@ -132,6 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     window.open(whatsappLink, "_blank");
     wp = 1
+    setTimeout(() => {
+      wp = 0;
+    }, 1000);
   }
   };
   window.shareOnTwitter = null;
@@ -139,6 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
   window.shareOnTwitter = (seriesInput, season, number) => {
     if (!tweetB) {
       tweetB = 1
+      setTimeout(() => {
+        tweetB = 0;
+      }, 1000);
     console.log("shareOnTwitter called");
 
     const url = `${window.location.origin}?seriesInput=${encodeURIComponent(
@@ -187,6 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Web Share API is not supported on this browser.");
     }
     shareB = 1
+    setTimeout(() => {
+      shareB = 0;
+    }, 1000);
   }
   };
   function dataURItoBlob(dataURI) {
@@ -219,3 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getRandomEpisode(); // Fetch details for the specific episode if URL parameters are present
   }
 });
+
+
+
+
