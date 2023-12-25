@@ -75,19 +75,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <img src="x-social-media-round-icon.svg" alt="WhatsApp Icon" id="shareIcon" style="
     height: 20px;
 " onclick="shareOnTwitter('${seriesInput}', ${data.season}, ${data.number})">
-          </button>
-          <button style="
-    height: 20px;
-" onclick="shareOnOthers()">
-          <img src="share-svgrepo-com.svg" alt="WhatsApp Icon" id="shareIcon" style="
-    height: 20px;
-" onclick="shareOnOthers()">
-          </button>
+          </button>   
         </div>
       </div>
       </div>
 
       `;
+
+
     } catch (error) {
       console.error("Error:", error.message);
       alert("Error fetching data. Please try again.");
@@ -173,57 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(tweetUrl, "_blank");
     }
   };
-  window.shareOnOthers = null;
-
-  window.shareOnOthers = async () => {
-    if (!shareB) {
-
-    console.log("shareOnOthers called");
-
-    // document.documentElement.style.backgroundColor = "rgba(255,42,102,255)";
-    // document.body.style.backgroundColor = "rgba(255,42,102,255)";
-    const mainContainer = document.querySelector(".container");
-
-    // Make the background of the main container transparent
-    mainContainer.style.backgroundColor = "rgba(255,42,102,255)";
-
-    const canvas = await html2canvas(mainContainer);
-
-    // Convert canvas data to data URI
-    const dataURL = canvas.toDataURL();
-
-    // Reset the background color of the main container
-    mainContainer.style.backgroundColor = ""; // Set it to whatever color or style you had before
-
-    // Create a Blob from the data URL
-    const blob = dataURItoBlob(dataURL);
-
-    // Check if the Web Share API is supported
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Share on Others",
-          files: [new File([blob], "result_image.png", { type: "image/png" })],
-        });
-      } catch (error) {}
-    } else {
-      alert("Web Share API is not supported on this browser.");
-    }
-    shareB = 1
-    setTimeout(() => {
-      shareB = 0;
-    }, 1000);
-  }
-  };
-  function dataURItoBlob(dataURI) {
-    const byteString = atob(dataURI.split(",")[1]);
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: "image/png" });
-  }
 
   // Function to parse URL parameters
   window.getUrlParameter = (name) => {

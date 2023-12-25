@@ -3,7 +3,7 @@
 body {
   margin: 0;
   display: flex;
-  background: url("bg.svg") center no-repeat;
+  background: url("bg3.svg") center no-repeat;
   background-size: cover; /* or contain, or specific dimensions */
   font-size: smaller;
   font-family: "Figtree", sans-serif;
@@ -15,12 +15,12 @@ body {
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.374);
+  background: rgba(255, 255, 255, 0.317);
   border-radius: 20px;
   padding: 20px;
   text-align: center;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.322);
   width: 75%;
   max-width: 75%;
 }
@@ -42,14 +42,15 @@ input {
 .submitButton {
   padding: 10px 20px;
   border: none;
-  background-color: #4caf50;
+  background-color: #bc4d44;
   color: #fff;
   cursor: pointer;
   border-radius: 8px;
+  transition: all 0.2s;
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: #a32d4b;
 }
 
 #episodeDetails {
@@ -92,10 +93,8 @@ input {
   button{
     background: transparent;
     border: none;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 
 }
-
-/* @media (max-width: 767px) {
-
-} */
